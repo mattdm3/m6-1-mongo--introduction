@@ -3,6 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const { getCollection } = require('./exercises/exercise-1-2');
+const { createGreeting, getGreeting, getGreetings, deleteGreeting, updateGreeting } = require('./exercises/exercise-2');
 
 const PORT = process.env.PORT || 8000;
 
@@ -15,7 +17,15 @@ express()
 
   // exercise 1
 
+  .get('/ex-1/:dbName/:collection', getCollection)
+
   // exercise 2
+
+  .post('/ex-2/greeting', createGreeting)
+  .get('/ex-2/greeting/:_id', getGreeting)
+  .get('/ex-2/greeting', getGreetings)
+  .delete('/ex-2/greeting/:_id', deleteGreeting)
+  .put('/ex-2/greeting/:_id', updateGreeting)
 
   // handle 404s
   .use((req, res) => res.status(404).type('txt').send('🤷‍♂️'))
